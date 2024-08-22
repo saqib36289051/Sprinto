@@ -27,8 +27,8 @@ const Register = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    role: USER_ROLES.DEVELOPER,
-    fullName: name,
+    role,
+    fullName,
     img,
   });
 
@@ -36,6 +36,7 @@ const Register = asyncHandler(async (req, res) => {
     id: newUser.id,
     name: newUser.name,
     email: newUser.email,
+    fullName: newUser.fullName,
     role: newUser.role,
     img: newUser.img,
   };
