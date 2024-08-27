@@ -15,10 +15,11 @@ app.use(
 );
 
 import AuthRoutes from "./routes/AuthRoutes.js";
+import ProjectRoutes from "./routes/ProjectRoutes.js";
 
 
 app.use("/api/auth", AuthRoutes);
-// app.use('/api/users', userRoutes);
+app.use('/api/project', ProjectRoutes);
 
 app.use(errorHandler);
 

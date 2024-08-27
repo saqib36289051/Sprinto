@@ -4,6 +4,7 @@ import User from "../models/user.model.js";
 import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { USER_ROLES } from "../utils/Constants.js";
+import Validator from "../utils/Validator.js";
 
 const Register = asyncHandler(async (req, res) => {
   const { name, email, password, role, fullName, img } = req.body;
@@ -11,14 +12,12 @@ const Register = asyncHandler(async (req, res) => {
   if (!name || !email || !password || !role || !fullName) {
     res.status(400);
     throw new Error("Please fill all fields");
-    // throw new ApiError(400, "All fields are required");
   }
 
   const user = await User.findOne({ where: { email } });
   if (user) {
     res.status(400);
     throw new Error("User already exists");
-    // throw new ApiError(400, "Email already exists");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,19 +31,6 @@ const Register = asyncHandler(async (req, res) => {
     img,
   });
 
-  const payload = {
-    id: newUser.id,
-    name: newUser.name,
-    email: newUser.email,
-    fullName: newUser.fullName,
-    role: newUser.role,
-    img: newUser.img,
-  };
-
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
-
   const createdUser = {
     id: newUser.id,
     name: newUser.name,
@@ -54,7 +40,6 @@ const Register = asyncHandler(async (req, res) => {
     img: newUser.img,
     createdAt: newUser.createdAt,
     updatedAt: newUser.updatedAt,
-    token,
   };
 
   return res
@@ -62,4 +47,64 @@ const Register = asyncHandler(async (req, res) => {
     .json({ success: true, message: "User created successfully", createdUser });
 });
 
-export default Register;
+const Login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const validate = Validator(
+    {
+      email: "Please provide a valid email",
+      password: "Please provide a valid password",
+    },
+    req.body
+  );
+  if (Object.keys(validate).length > 0) {
+    return res.status(400).json({
+      success: false,
+      message: "Please fill all fields",
+      fields: validate,
+    });
+  }
+
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    res.status(400);
+    throw new Error("User does not exist");
+  }
+
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+
+  const payload = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    fullName: user.fullName,
+    role: user.role,
+    img: user.img,
+  };
+
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+
+  const loginUser = {
+    id: user.id,
+    name: user.name,
+    fullName: user.fullName,
+    email: user.email,
+    role: user.role,
+    img: user.img,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    token,
+  };
+
+  return res
+    .status(200)
+    .json({ success: true, message: "User logged in successfully", loginUser });
+});
+
+export { Register, Login };

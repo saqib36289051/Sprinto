@@ -1,10 +1,10 @@
 //id,name,description,createdBy
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+import sequelize from "../config/db.js";
 import User from "./user.model.js";
 
 const Project = sequelize.define(
-  "projects",
+  "Projects",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -19,7 +19,7 @@ const Project = sequelize.define(
       type: DataTypes.STRING,
     },
     createdBy: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       references: {
         model: User,
         key: "id",
@@ -27,7 +27,7 @@ const Project = sequelize.define(
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
 
@@ -38,7 +38,7 @@ Project.belongsToMany(User, {
 });
 User.belongsToMany(Project, {
   through: "ProjectMembers",
-  as: "projects",
+  as: "Project",
   foreignKey: "userId",
 });
 
