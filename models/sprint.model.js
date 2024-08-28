@@ -4,12 +4,12 @@ import Project from "./project.model.js";
 
 const Sprint = sequelize.define("Sprint", {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
   projectId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: Project,
       key: "id",

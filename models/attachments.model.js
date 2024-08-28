@@ -2,17 +2,17 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../config/db.js";
 import Task from "./task.model.js";
 
-const Attachment = sequelize.define('Attachment', {
+const Attachment = sequelize.define("Attachment", {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
   taskId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: Task,
-      key: 'id',
+      key: "id",
     },
   },
   filename: {
@@ -23,7 +23,7 @@ const Attachment = sequelize.define('Attachment', {
   },
 });
 
-Task.hasMany(Attachment, { foreignKey: 'taskId' });
-Attachment.belongsTo(Task, { foreignKey: 'taskId' });
+Task.hasMany(Attachment, { foreignKey: "taskId" });
+Attachment.belongsTo(Task, { foreignKey: "taskId" });
 
 export default Attachment;

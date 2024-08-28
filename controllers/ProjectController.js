@@ -1,10 +1,10 @@
+import { validate as uuidValidate } from "uuid";
 import Project from "../models/project.model.js";
 import User from "../models/user.model.js";
 import Validator from "../utils/Validator.js";
 //TODO: POST
 const createNewProject = async (req, res) => {
   const { name, description } = req.body;
-  console.log("USER", req.user);
   const createdBy = req.user.id;
 
   const validate = Validator(
@@ -57,6 +57,14 @@ const getAllProjects = async (req, res) => {
 const updateProject = async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
+
+  if (!uuidValidate(id)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid project ID format",
+    });
+  }
+
   const project = await Project.findByPk(id);
 
   if (!project) {
@@ -81,6 +89,12 @@ const updateProject = async (req, res) => {
 //TODO: DELETE
 const deleteProject = async (req, res) => {
   const { id } = req.params;
+  if (!uuidValidate(id)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid project ID format",
+    });
+  }
   const project = await Project.findByPk(id);
 
   if (!project) {
@@ -101,6 +115,12 @@ const deleteProject = async (req, res) => {
 //TODO: GET BY ID
 const getProjectById = async (req, res) => {
   const { id } = req.params;
+  if (!uuidValidate(id)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid project ID format",
+    });
+  }
   const singleProject = await Project.findByPk(id, {
     include: [
       {

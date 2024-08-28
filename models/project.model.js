@@ -7,9 +7,9 @@ const Project = sequelize.define(
   "Projects",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -19,7 +19,7 @@ const Project = sequelize.define(
       type: DataTypes.STRING,
     },
     createdBy: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: User,
         key: "id",

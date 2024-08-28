@@ -6,12 +6,12 @@ const { STATUSES, PRIORITIES } = require("../utils/Constants.js");
 
 const Task = sequelize.define("Task", {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
   sprintId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: Sprint,
       key: "id",
@@ -25,7 +25,7 @@ const Task = sequelize.define("Task", {
     type: DataTypes.STRING,
   },
   assignedTo: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: "id",
