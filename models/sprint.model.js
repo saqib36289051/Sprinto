@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+import sequelize from "../config/db.js";
 import Project from "./project.model.js";
 
 const Sprint = sequelize.define("Sprint", {

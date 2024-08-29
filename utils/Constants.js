@@ -1,23 +1,23 @@
 export const USER_ROLES = {
-  ADMIN: "Admin",
-  PROJECT_MANAGER: "Project Manager",
-  DEVELOPER: "Developer",
+  ADMIN: "ADMIN",
+  PROJECT_MANAGER: "PROJECT_MANAGER",
+  DEVELOPER: "DEVELOPER",
 };
 
 // 'To Do', 'In Progress', 'Done'
 export const STATUSES = {
-  TODO: "To Do",
-  IN_PROGRESS: "In Progress",
-  DONE: "Done",
+  TODO: "TODO",
+  IN_PROGRESS: "IN_PROGRESS",
+  DONE: "DONE",
 };
 
 //"Low", "Medium", "High"
 
 export const PRIORITIES = {
-  LOW: "Low",
-  MEDIUM: "Medium",
-  HIGH: "High",
-}
+  LOW: "LOW",
+  MEDIUM: "MEDIUM",
+  HIGH: "HIGH",
+};
 
 export const HTTP_STATUS = {
   SERVER_ERROR: 500,
@@ -27,4 +27,4 @@ export const HTTP_STATUS = {
   VALIDATION_ERROR: 400,
   CREATED: 201,
   SUCCESS: 200,
-}
+};

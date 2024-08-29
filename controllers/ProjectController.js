@@ -1,7 +1,7 @@
 import { validate as uuidValidate } from "uuid";
 import Project from "../models/project.model.js";
 import User from "../models/user.model.js";
-import Validator from "../utils/Validator.js";
+import Validator from "../utils/Validator.js";  
 //TODO: POST
 const createNewProject = async (req, res) => {
   const { name, description } = req.body;
