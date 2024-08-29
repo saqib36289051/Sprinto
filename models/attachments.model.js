@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+import sequelize from "../config/db.js";
 import Task from "./task.model.js";
 
 const Attachment = sequelize.define("Attachment", {

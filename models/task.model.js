@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+import sequelize from "../config/db.js";
 import Sprint from "./sprint.model.js";
 import User from "./user.model.js";
-const { STATUSES, PRIORITIES } = require("../utils/Constants.js");
+import { STATUSES, PRIORITIES } from "../utils/Constants.js";
 
 const Task = sequelize.define("Task", {
   id: {

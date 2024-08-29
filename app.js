@@ -18,11 +18,15 @@ import AuthRoutes from "./routes/AuthRoutes.js";
 import ProjectRoutes from "./routes/ProjectRoutes.js";
 import SprintRoutes from "./routes/SprintRoutes.js";
 import TaskRoutes from "./routes/TaskRoutes.js";
+import CommentRoutes from "./routes/CommentRoutes.js";
+import AttachmentsRoutes from "./routes/AttachmentsRoutes.js";
 
 app.use("/api/auth", AuthRoutes);
 app.use("/api/project", ProjectRoutes);
 app.use("/api/sprint", SprintRoutes);
 app.use("/api/task", TaskRoutes);
+app.use("/api/comment", CommentRoutes);
+app.use("/api/attachments", AttachmentsRoutes);
 
 app.use(errorHandler);
 

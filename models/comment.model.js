@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+import sequelize from "../config/db.js";
 import Task from "./task.model.js";
 import User from "./user.model.js";
 
-const Comment = sequelize.define('Comment', {
+const Comment = sequelize.define("Comment", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -13,14 +13,14 @@ const Comment = sequelize.define('Comment', {
     type: DataTypes.UUID,
     references: {
       model: Task,
-      key: 'id',
+      key: "id",
     },
   },
   userId: {
     type: DataTypes.UUID,
     references: {
       model: User,
-      key: 'id',
+      key: "id",
     },
   },
   comment: {
@@ -32,9 +32,9 @@ const Comment = sequelize.define('Comment', {
   },
 });
 
-Task.hasMany(Comment, { foreignKey: 'taskId' });
-Comment.belongsTo(Task, { foreignKey: 'taskId' });
-User.hasMany(Comment, { foreignKey: 'userId' });
-Comment.belongsTo(User, { foreignKey: 'userId' });
+Task.hasMany(Comment, { foreignKey: "taskId" });
+Comment.belongsTo(Task, { foreignKey: "taskId" });
+User.hasMany(Comment, { foreignKey: "userId" });
+Comment.belongsTo(User, { foreignKey: "userId" });
 
 export default Comment;
