@@ -1,9 +1,11 @@
 import { validate as uuidValidate } from "uuid";
 import Task from "../models/task.model.js";
+import Comment from "../models/comment.model.js";
 
 const createComment = async (req, res) => {
-  const { comment, userId } = req.body;
+  const { comment } = req.body;
   const taskId = req.params.taskId;
+  const userId = req.user.id;
 
   if (!uuidValidate(taskId)) {
     return res.status(400).json({
@@ -20,7 +22,7 @@ const createComment = async (req, res) => {
     });
   }
 
-  const newComment = await task.createComment({
+  const newComment = await Comment.create({
     taskId,
     userId,
     comment,

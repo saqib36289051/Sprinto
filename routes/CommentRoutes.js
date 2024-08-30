@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.use(validateUserToken)
 
-router.route("/:taskId").post(createComment).get(getCommentByTaskId)
+router.route("/:taskId/ByTask").post(createComment).get(getCommentByTaskId)
 router.route("/:id").put(updateComment).delete(deleteComment)
 
 export default router
